@@ -27,11 +27,11 @@ export function CustomLayout(props) {
 }
 
 const StyledLayout = styled(Layout)`
-  padding: 16px;
+  height: 100%;
 `;
 
 const StyledContent = styled(Content)`
-  padding: 16px 0;
+  padding: 16px;
 `;
 
 const StyledFooter = styled(Footer)`
