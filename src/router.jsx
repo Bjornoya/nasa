@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Spin } from 'antd';
 
 const Main = lazy(() => import('./pages/Main'));
@@ -10,8 +10,9 @@ function AppRoutes() {
     <Router>
       <Suspense fallback={<Spin />}>
         <Routes>
-          <Route path="/:query" element={<Main />} />
+          <Route path="search/" element={<Main />} />
           <Route path="/details/:nasa_id" element={<Details />} />
+          <Route exact path="/" element={<Navigate to="/search" />} />
         </Routes>
       </Suspense>
     </Router>
