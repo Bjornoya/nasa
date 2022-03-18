@@ -1,13 +1,21 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
         "airbnb",
         "prettier"
     ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
+        }
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true,
@@ -25,6 +33,7 @@
         "react/react-in-jsx-scope": "off",
         "import/prefer-default-export": "off",
         "no-restricted-exports": "off",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "no-absolute-path": "off"
     }
 }
