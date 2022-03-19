@@ -3,31 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Search from 'components/Search';
 import Filters from './Filters';
-
-const TYPES = {
-  SEARCH: 'SEARCH',
-  FILTERS: 'FILTERS',
-};
-
-const initialState = { query: '', dates: { moment: null, strings: ['', ''] } };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case TYPES.SEARCH:
-      return { ...state, query: action.payload };
-    case TYPES.FILTERS:
-      return { ...state, dates: action.payload };
-    default:
-      throw new Error();
-  }
-}
+import { regex, TYPES, initialState, reducer } from './utils';
 
 function Main() {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const onSearch = (e) => {
-    dispatch({ type: TYPES.SEARCH, payload: e.target.value });
+    const {
+      target: { value },
+    } = e;
+    if (value.match(regex)) {
+      dispatch({ type: TYPES.SEARCH, payload: value });
+    }
   };
 
   const onSetFilters = (date, dateString) => {
