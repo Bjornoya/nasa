@@ -31,7 +31,7 @@ const StyledLayout = styled(Layout)`
 `;
 
 const StyledContent = styled(Content)`
-  padding: 16px;
+  padding: 64px 16px;
 `;
 
 const StyledFooter = styled(Footer)`

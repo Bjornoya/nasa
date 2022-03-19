@@ -1,5 +1,5 @@
 export default {
   en: {
-    placeholder: 'input search text',
+    placeholder: 'Input search text',
   },
 };
