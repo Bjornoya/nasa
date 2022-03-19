@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Search from 'components/Search';
 import Filters from './Filters';
@@ -22,6 +23,7 @@ function reducer(state, action) {
 }
 
 function Main() {
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const onSearch = (e) => {
@@ -31,6 +33,19 @@ function Main() {
   const onSetFilters = (date, dateString) => {
     dispatch({ type: TYPES.FILTERS, payload: { moment: date, strings: dateString } });
   };
+
+  /* Update URL on search query and selected filters */
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (state.query) {
+      params.append('q', state.query);
+    }
+    if (state.query && state.dates.strings.every(Boolean)) {
+      params.append('year_start', state.dates.strings[0]);
+      params.append('year_end', state.dates.strings[1]);
+    }
+    navigate({ search: params.toString() });
+  }, [state.query, state.dates.strings, navigate]);
 
   return (
     <>
