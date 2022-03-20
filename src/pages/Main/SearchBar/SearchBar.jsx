@@ -1,8 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Search from 'components/Search';
-import PropTypes from 'prop-types';
+import styles from 'assets/styles/variables';
 import Filters from '../Filters';
 import { initialState, reducer, regex, TYPES } from '../utils';
 
@@ -55,10 +56,16 @@ const Bar = styled.div`
   width: 50%;
   margin: 0 auto;
   text-align: right;
+  @media screen and (max-width: ${styles.screens.tablet}) {
+    width: 100%;
+  }
 `;
 
 const StyledFilters = styled(Filters)`
   margin: 16px 0;
+  @media screen and (max-width: ${styles.screens.mobile}) {
+    width: 100%;
+  }
 `;
 
 SearchBar.propTypes = {
