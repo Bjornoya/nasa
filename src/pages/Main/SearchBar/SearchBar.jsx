@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Search from 'components/Search';
 import styles from 'assets/styles/variables';
+import { debounce } from 'helpers';
 import Filters from '../Filters';
 import { initialState, reducer, regex, TYPES } from '../utils';
 
@@ -11,6 +12,7 @@ function SearchBar(props) {
   const { request, setData } = props;
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const debouncedRequest = useCallback(debounce(request, 500), [request]);
 
   const onSearch = (e) => {
     const {
@@ -25,6 +27,7 @@ function SearchBar(props) {
     dispatch({ type: TYPES.FILTERS, payload: { moment: date, strings: dateString } });
   };
 
+  /* TODO: Split useEffect into clean functions */
   /* Update URL on search query and selected filters */
   useEffect(() => {
     const params = new URLSearchParams('media_type=image');
@@ -39,7 +42,7 @@ function SearchBar(props) {
     /* We do the API call only if input isn't empty */
     if (state.query) {
       params.append('q', state.query);
-      request(params.toString());
+      debouncedRequest(params.toString());
     }
     navigate({ search: params.toString() });
   }, [state.query, state.dates.strings, navigate]);
