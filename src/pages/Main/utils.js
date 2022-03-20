@@ -27,6 +27,7 @@ export const convertItems = (items) =>
       title,
       photographer,
       location,
-      thumbnail: getAssetsImage(nasaId, 'thumb'),
+      thumbnail: getAssetsImage(nasaId, 'small'),
+      id: nasaId,
     };
   });

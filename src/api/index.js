@@ -21,4 +21,4 @@ export const getDetails = (id) => fetch(`${ROOT_URL}/search?nasa_id=${id}`);
  * @param {'orig'|'large'|'medium'|'small'|'thumb'} size - Image's size
  * @returns {string} - Image's URL
  */
-export const getAssetsImage = (id, size) => `${ROOT_ASSETS_URL}/image/${id}/~${size}.jpg`;
+export const getAssetsImage = (id, size) => `${ROOT_ASSETS_URL}/image/${id}/${id}~${size}.jpg`;

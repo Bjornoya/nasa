@@ -32,6 +32,7 @@ const StyledLayout = styled(Layout)`
 
 const StyledContent = styled(Content)`
   padding: 64px 16px;
+  overflow-x: auto;
 `;
 
 const StyledFooter = styled(Footer)`
