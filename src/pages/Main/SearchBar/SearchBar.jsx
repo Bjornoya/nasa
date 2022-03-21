@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useReducer } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Search from 'components/Search';
 import styles from 'assets/styles/variables';
 import { debounce } from 'helpers';
@@ -11,6 +12,7 @@ import { initialState, reducer, regex, TYPES } from '../utils';
 function SearchBar(props) {
   const { request, setData } = props;
   const navigate = useNavigate();
+  const location = useLocation();
   const [state, dispatch] = useReducer(reducer, initialState);
   const debouncedRequest = useCallback(debounce(request, 500), [request]);
 
@@ -46,6 +48,26 @@ function SearchBar(props) {
     }
     navigate({ search: params.toString() });
   }, [state.query, state.dates.strings, navigate]);
+
+  /* Initial render || Go back to search results */
+  useEffect(() => {
+    const currentQuery = location.search.slice(1); // getting rid of question mark
+    const params = new URLSearchParams(currentQuery);
+    const q = params.get('q');
+
+    if (q) {
+      dispatch({ type: TYPES.SEARCH, payload: q });
+      const startDate = params.get('year_start');
+      const endDate = params.get('year_end');
+      if (startDate && endDate) {
+        dispatch({
+          type: TYPES.FILTERS,
+          payload: { moment: [moment(startDate), moment(endDate)], strings: [startDate, endDate] },
+        });
+      }
+      request(currentQuery);
+    }
+  }, []);
 
   return (
     <Bar>

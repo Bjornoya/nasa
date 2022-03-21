@@ -11,7 +11,7 @@ function AppRoutes() {
     <Router>
       <Suspense fallback={<Spin />}>
         <Routes>
-          <Route path="search/" element={<Main />} />
+          <Route path=":search" element={<Main />} />
           <Route path="/details/:nasa_id" element={<Details />} />
           <Route exact path="/" element={<Navigate to="/search" />} />
           <Route path="*" element={<Error />} />
