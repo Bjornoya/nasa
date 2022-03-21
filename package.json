@@ -11,6 +11,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
     "jsdoc": "^3.6.10",
+    "moment": "^2.29.1",
     "prettier": "^2.6.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
