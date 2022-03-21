@@ -1,5 +1,3 @@
-import { getAssetsImage } from 'api';
-
 export const regex = '^[a-zA-Z0-9_.-]*$';
 
 export const TYPES = {
@@ -20,14 +18,7 @@ export function reducer(state, action) {
   }
 }
 
-export const convertItems = (items) =>
-  items?.map((item) => {
-    const { title, photographer, location, nasa_id: nasaId } = item.data[0];
-    return {
-      title,
-      photographer,
-      location,
-      thumbnail: getAssetsImage(nasaId, 'small'),
-      id: nasaId,
-    };
-  });
+export const CONFIG = {
+  fields: ['title', 'photographer', 'location'],
+  imgSize: 'small',
+};
